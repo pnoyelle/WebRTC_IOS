@@ -2,3 +2,4 @@ out
 build
 *.zip
 .DS_Store
+.build/manifest.db

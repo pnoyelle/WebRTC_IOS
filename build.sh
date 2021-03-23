@@ -16,8 +16,7 @@ mkdir -p build/Carthage/Build/iOS
 
 cp -R build/WebRTC.framework build/Carthage/Build/iOS/WebRTC.framework
 
-
-zip -r build/WebRTC.framework.zip build/Carthage
-zip -r build/WebRTC.xcframework.zip build/WebRTC.xcframework
-zip -r build/WebRTC_IOS.zip build/WebRTC.framework
-
+cd build
+zip -r WebRTC.framework.zip Carthage
+zip -r WebRTC.xcframework.zip WebRTC.xcframework
+zip -r WebRTC_IOS.zip WebRTC.framework
