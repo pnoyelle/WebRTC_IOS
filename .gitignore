@@ -1,5 +1,11 @@
 out
 build
 *.zip
+src
+depot_tools
 .DS_Store
 .build/manifest.db
+depot_tools
+.cipd
+.gclient
+.gclient_entries
