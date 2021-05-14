@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     APIs.
                    DESC
   s.homepage     = "http://webrtc.org/"
-  s.source       = { :http => 'https://github.com/pnoyelle/WebRTC_IOS/releases/download/1.5.0/WebRTC_IOS.zip' }
+  s.source       = { :http => 'https://github.com/pnoyelle/WebRTC_IOS/releases/download/1.5.0-bitcode/WebRTC_IOS.zip' }
   s.license      = { :type => "BSD", :file => "LICENSE" }
   s.author    = "Google Inc."
 
