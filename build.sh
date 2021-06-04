@@ -21,16 +21,29 @@ python $WEBRTC_SRC/tools_webrtc/ios/build_ios_libs.py $bitcode --arch x86 -o $ou
 python $WEBRTC_SRC/tools_webrtc/ios/build_ios_libs.py $bitcode --arch arm -o $outdir/ios_arm --build_config release
 
 cp -R $outdir/ios_arm64/WebRTC.framework  ./$builddir/
-lipo -create $outdir/ios_arm64/WebRTC.framework/WebRTC  $outdir/ios_x64/WebRTC.framework/WebRTC $outdir/ios_x86/WebRTC.framework/WebRTC $outdir/ios_arm/WebRTC.framework/WebRTC   -output $builddir/WebRTC.framework/WebRTC
 
 lipo -create $outdir/ios_arm64/WebRTC.framework/WebRTC $outdir/ios_arm/WebRTC.framework/WebRTC   -output $outdir/ios_arm64/WebRTC.framework/WebRTC
-lipo -create $outdir/ios_x86/WebRTC.framework/WebRTC $outdir/ios_x64/WebRTC.framework/WebRTC   -output $outdir/ios_x64/WebRTC.framework/WebRTC
+
+simulatorARM64=""
+if [ -z $bitcode ] 
+then 
+  if [ -d "./s_classic_arm64" ] 
+  then
+    simulatorARM64="s_classic_arm64/ios_x64/WebRTC.framework/WebRTC"
+  fi
+else 
+ if [ -d "./s_bitcode_arm64" ] 
+ then
+    simulatorARM64="s_bitcode_arm64/ios_x64/WebRTC.framework/WebRTC"
+ fi
+fi
+
+lipo -create $outdir/ios_x86/WebRTC.framework/WebRTC $outdir/ios_x64/WebRTC.framework/WebRTC $simulatorARM64   -output $outdir/ios_x64/WebRTC.framework/WebRTC 
 xcodebuild -create-xcframework -framework $outdir/ios_arm64/WebRTC.framework -framework $outdir/ios_x64/WebRTC.framework  -output $builddir/WebRTC.xcframework
 mkdir -p $builddir/Carthage/Build/iOS
 
-cp -R $builddir/WebRTC.framework $builddir/Carthage/Build/iOS/WebRTC.framework
+cp -R $builddir/WebRTC.xcframework $builddir/Carthage/Build/iOS/WebRTC.xcframework
 
 cd $builddir
 zip -r WebRTC.framework.zip Carthage
 zip -r WebRTC.xcframework.zip WebRTC.xcframework
-zip -r WebRTC_IOS.zip WebRTC.framework

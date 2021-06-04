@@ -1,1 +1,15 @@
-Build of Webrtc for IOS
+# Build of Webrtc for IOS
+
+## simulator and arm64 for m1 mac
+
+to be able to compile for arm 64 simulator i had to modify `src/build/config/ios/BUILD.gn` :
+
+```
+target_environment = "simulator"
+ios_sdk_path = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.5.sdk"
+```
+
+(check the iphone simulator version) and run an arm 64 build.
+this generate the ARM64 binary that can be merged (with lipo) to the xcframework simulator binary.
+
+`python src/tools_webrtc/ios/build_ios_libs.py  --bitcode --arch arm64 -o testb/ios_x64 --build_config release`
