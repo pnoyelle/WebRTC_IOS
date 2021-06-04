@@ -9,3 +9,5 @@ depot_tools
 .cipd
 .gclient
 .gclient_entries
+s_classic_arm64/
+s_bitcode_arm64/
